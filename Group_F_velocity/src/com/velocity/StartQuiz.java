@@ -23,7 +23,7 @@ public class StartQuiz implements StartQuiz_Interafce {
 			
 			//step 3-prepare statement
 			
-			PreparedStatement ps=con.prepareStatement("SELECT * FROM QUIZDATA ");
+			PreparedStatement ps=con.prepareStatement("SELECT * FROM QUIZDATA ORDER BY RAND() LIMIT 10; ");
 			
 			//step 4- submit query
 			
