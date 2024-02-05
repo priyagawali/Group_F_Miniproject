@@ -7,10 +7,11 @@ public class CreateConection {
 		Connection conn=null;
 		try {
 			//step 1-load teh driver class
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			//STEP 2-eshstablish the connection
-			 conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/miniproject", "root", "Prashant@27");
+			
+			 conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/miniproject?useSSL=false", "root", "Prashant@27");
 			
 			
 			

@@ -1,15 +1,19 @@
 package com.velocity;
-
+import com.velocity.operations;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Login {
+import com.mysql.cj.xdevapi.ColumnDefinition.StaticColumnDefinition;
+
+public class Login implements login_interface{
 	static CreateConection cc=new CreateConection();
 	static Connection con=null;
 	static PreparedStatement ps=null;
 	static ResultSet rs=null;
+	
+	 private static String loggedInUsername;
 		
 	private static boolean loggedIn = false;
 	
@@ -26,22 +30,25 @@ public class Login {
 		ps.setString(1, Entered_username);
 		ps.setString(2, Entered_password);
 		
+		
 		//step 4-submit query
 		 rs=ps.executeQuery();
 		 
 		 if(rs.next())
 		 {
+			 loggedInUsername=Entered_username;
 			 loggedIn = true;
 			 System.out.println("Logged in...");
-			 operations.toContinue();
+//			 operations.toContinue();
 			
 		 }
 		 else 
 		 {
 			System.out.println("Oops...Invalid username and password");
-			operations.toContinue();
+			
 		 }
 		
+		 
 		
 		 //step 5- process the result it will happened internally
 		
@@ -75,7 +82,13 @@ public class Login {
 		
 		
 	}
-
+	
+	public static String LoggediUserName()
+	{
+		return loggedInUsername;
+		
+	}
+	
 	
 
 }

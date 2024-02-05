@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Registration {
+public class Registration implements Registration_Interface{
 	static CreateConection c=new CreateConection();
 	static Connection con=null;
 

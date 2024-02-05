@@ -1,8 +1,10 @@
 package com.velocity;
+import java.io.NotActiveException;
 import java.sql.SQLException;
 import java.time.Year;
 import java.util.Scanner;
 
+import javax.print.DocFlavor.STRING;
 import javax.swing.text.AbstractDocument.BranchElement;
 
 import com.mysql.cj.log.Log;
@@ -98,7 +100,10 @@ public class operations {
 			
 			
 		case 3:
-			
+			if (!Login.isLoggedIn()) {
+			    System.out.println("You need to log in first.");
+			    PerformOperation(2); // Call the login operation
+			}
 			
 			System.out.println("Let's Start the quiz");
 			
@@ -116,42 +121,120 @@ public class operations {
 			char ch=scanner.next().charAt(0);
 			if(ch=='Y' || ch=='y')
 			{
-			//HERE CALL CODE TO START THE QUIZ
+			
+			StartQuiz.startQuiz();
+			
+			System.out.println("Would like to Finish Exam if Yes Write 'FINISH' as it is");
+			String input=scanner.next();
+			
+			if (input.equals("FINISH"))
+			{
+				System.out.println("THANK YOU FOR SUBMITTING EXAM ...!");
+			}
 			
 			
 			}
-			toContinue();
 			
+			toContinue();
 			
 			break;
 			
 		case 4:
-			System.out.println("store quiz result into db");
+
 			
+			System.out.println("This For Admin Use Only");
+			if(Admin.isAdmin()) {
+				System.out.println(" -: RESULT :- ");
+			DisplayResult.resultDisplay();
+			System.out.println();
 			
-						
+			}
+			else {
+				 System.out.println("You are not authorized to see  result. Only admins can .");
+		           
+			}
+			
 			toContinue();
 			break;
 		case 5:
-			System.out.println("Display result");
+			System.out.println("This For Admin Use Only");
+//			System.out.println("Display result(Score) in ascending order");
+			if(Admin.isAdmin()) {
+				System.out.println(" -: RESULT :- ");
+				ResultInAscOrder.AscresultDisplay();
+				System.out.println();
+			
+			}
+			else {
+				 System.out.println("You are not authorized to see  result. Only admins can .");
+		           
+			}
+			
 			toContinue();
 			break;
 		case 6:
-			System.out.println("Display result in ascending order");
+//			System.out.println("Display result by Usrname");
+			System.out.println("This For Admin Use Only");
+			
+			if(Admin.isAdmin()) {
+				
+				System.out.println("Enter Username To get the Result: ");
+				String usernm=scanner.next();
+				
+				System.out.println(" -: RESULT :- ");
+				ResByUsername.SearchResByUserName(usernm);
+				System.out.println();
+			
+			}
+			else {
+				 System.out.println("You are not authorized to see  result. Only admins can .");
+		           
+			}
+			
+			
+			
+			
+			
 			toContinue();
 			break;
 		case 7:
-			System.out.println("Display result by id");
-			toContinue();
-			break;
-		case 8:
-			System.out.println("Add your Question");
+			System.out.println("This For Admin Use Only");
+			if(Admin.isAdmin()) {
+				
+				System.out.println("You are authorized to add a question.");
+				System.out.println("Enter your question: ");
+		        String question = scanner.nextLine();
+
+		        System.out.println("Enter Option 1: ");
+		        String option1 = scanner.nextLine();
+
+		        System.out.println("Enter Option 2: ");
+		        String option2 = scanner.nextLine();
+
+		        System.out.println("Enter Option 3: ");
+		        String option3 = scanner.nextLine();
+
+		        System.out.println("Enter Option 4: ");
+		        String option4 = scanner.nextLine();
+
+	
+	            AddQuestion.addquestion(question, option1, option2, option3, option4);
+			
+			}
+			else {
+				 System.out.println("You are not authorized to Add question. Only admins can .");
+		           
+			}
+			
+
 			toContinue();
 			
 			break;
 		
 		default:
+
 			System.out.println("invalid choice ....");
+
 			toContinue();
 			
 			break;
